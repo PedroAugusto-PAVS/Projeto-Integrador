@@ -6,19 +6,28 @@
 	<link rel="stylesheet" href="">
 </head>
 <body>
+	<a href="home.php">HOME</a>
 	<h1>Categoria de Leitores</h1>
 	<form action="" method="POST">
 		<fieldset>
 			<legend>Cadastro de Categoria de Leitores</legend>
 			<p>
 				Nome da Categoria: <br>
-				<input type="text" name="nomecat">
+				<input type="text" name="nomecat" required>
 			</p>
 			<p>
-				Número de dias: <br>
-				<input type="number" name="num">
+				Número Max de dias : <br>
+				<input type="number" name="numDias" required>
 			</p>
-			<p><input type="submit" value="Cadastrar" name="cad"></p>
+			<p>
+				<input type="submit" value="Cadastrar" name="cad">
+				<button >
+					<a href="alterar.php">Alterar</a>
+				</button>
+				<button>
+					<a href="remover.php">Remover</a>
+				</button>
+			</p>
 		</fieldset>
 	</form>
 </body>
@@ -27,9 +36,9 @@
 <?php
 	require 'conexao.php'; // requere a conexao com o Banco
 	if (isset($_POST['cad'])) { // verifica se a variavel do botao existe
-		$nc = $_POST['nomecat']; // variavel recebe os valores digitados nos inputs
-		$num = $_POST['num'];
-		$cad = $conexao->prepare("insert into catleitores(nome, num) values('$nc', '$num')"); // prepara o codigo sql para ser executado no banco
+		$nomecat = $_POST['nomecat']; // variavel recebe os valores digitados nos inputs
+		$numDias = $_POST['numDias'];
+		$cad = $conexao->prepare("insert into categoriasleitores(nomecat, numDias) values('$nomecat', '$numDias')"); // prepara o codigo sql para ser executado no banco
 		$cad->execute(); // executa o codigo sql do comando acima
 		echo "<h2>Cadastrado com sucesso!!!</h2>"; // mensagem indicativa de execução
 	}
